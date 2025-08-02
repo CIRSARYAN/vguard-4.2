@@ -139,9 +139,13 @@ export const AuthGate: React.FC<AuthGateProps> = ({ children, onAuthenticated })
     setIsLoading(true)
     setError('')
 
-    // Check for easter egg activation or correct password
-    if (easterEggActivated || password === correctPassword) {
-      // Sharp instant authentication
+    if (easterEggActivated) {
+      // Easter egg activated - instant access
+      setIsAuthenticated(true)
+      setShowMatrix(false)
+      onAuthenticated()
+    } else if (password === correctPassword) {
+      // Normal authentication flow
       await new Promise(resolve => setTimeout(resolve, 1000))
 
       setShowAccessGranted(true)
